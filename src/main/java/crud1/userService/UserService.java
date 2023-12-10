@@ -8,6 +8,7 @@ import java.util.ListIterator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import crud1.entity.User;
 import crud1.repository.UserRepo;
 
@@ -29,6 +30,10 @@ public class UserService{
 	      repo.findAll().forEach(user -> users.add(user));
 	      return users; 
 		
+	}
+	
+	public User findbyEmailAndPassword(String email, String password) {
+		return repo.findByEmailAndPassword(email, password);
 	}
 
 }

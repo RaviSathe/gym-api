@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+
 import crud1.entity.User;
 import crud1.userService.UserService;
 
@@ -27,6 +28,29 @@ public class UserController {
 	@GetMapping("/")
 	public List<User> getAllUsers(){
 		return userService.showAllUser();
+	}
+	
+	@PostMapping("/login")
+	public User findbyEmailAndPassword(@RequestBody User user) throws Exception {
+		String tempEmail;
+		String tempPassword;
+		
+		tempEmail = user.getEmail();
+		tempPassword = user.getPassword();
+		
+		User loginUser = null;
+		
+		if(tempEmail != null && tempPassword != null) {
+			loginUser = userService.findbyEmailAndPassword(user.getEmail(), user.getPassword());
+		}else {
+			throw new Exception("Please provide valid Credientials");
+		}
+		
+		System.out.println("Welcome "+ loginUser.getFirstName());
+		return loginUser;
+		
+		
+		
 	}
 
 }
