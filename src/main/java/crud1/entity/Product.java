@@ -13,7 +13,7 @@ public class Product {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	private String productName;
+	private String name;
 	private String useOfProduct;
 	private String image;
 	private String category;
@@ -24,11 +24,11 @@ public class Product {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getProductName() {
-		return productName;
+	public String getName() {
+		return name;
 	}
-	public void setProductName(String productName) {
-		this.productName = productName;
+	public void setName(String name) {
+		this.name = name;
 	}
 	public String getUseOfProduct() {
 		return useOfProduct;
@@ -56,7 +56,7 @@ public class Product {
 	}
 	@Override
 	public String toString() {
-		return "Product [id=" + id + ", productName=" + productName + ", useOfProduct=" + useOfProduct + ", image="
+		return "Product [id=" + id + ", name=" + name + ", useOfProduct=" + useOfProduct + ", image="
 				+ image + ", category=" + category + ", description=" + description + "]";
 	}
 	

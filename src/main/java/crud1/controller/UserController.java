@@ -21,6 +21,7 @@ import crud1.userService.ProductServiceImpl;
 
 import crud1.entity.User;
 import crud1.exception.GlobalException;
+import crud1.emailConfig.EmailSenderService;
 import crud1.entity.Product;
 import crud1.entity.Seller;
 import crud1.userService.UserService;
@@ -32,6 +33,7 @@ public class UserController {
 	
 	@Autowired UserService userService;
 	@Autowired ProductServiceImpl service;
+	@Autowired EmailSenderService emailSender;
 	
 	@PostMapping("/register")
 	public User registerUser(@RequestBody User user) {
@@ -43,12 +45,14 @@ public class UserController {
 				try {
 					throw new GlobalException("Email id "+ tempEmail +" Already Exist...");
 				}catch(Exception e) {
-//					String msg = 
-//					return 
 					System.out.println(e.getMessage());
 				}
 			}else {
 				userObj = userService.addUser(user);
+				String email = user.getEmail();
+				String subject = "Registration Successufl";
+				String body = "Hello User Thank you for choosing GoFit.";
+				emailSender.sendEmail(email, subject, body);
 				System.out.println("User Registered Successfully..");
 			}
 		}
@@ -98,7 +102,6 @@ public class UserController {
 		User emailCheck = userService.findUserByEmail(email);
 		if(emailCheck != null) {
 			System.out.println(emailCheck);
-//			return emailCheck;
 		}else {
 			try {				
 				throw new GlobalException("Email id does not exist");
@@ -115,7 +118,7 @@ public class UserController {
         try {
             // Create an Image entity and save it
             Product image = new Product();
-            image.setProductName(file.getOriginalFilename());
+            image.setName(file.getOriginalFilename());
             // Set other properties if available
 
             // Save the image
